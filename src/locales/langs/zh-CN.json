@@ -1,0 +1,17 @@
+{
+  "fallback": {
+    "forbidden":"哎呀！访问被拒绝",
+    "forbiddenDesc": "抱歉，您没有权限访问此网页。",
+    "pageNotFound": "哎呀！未找到页面",
+    "pageNotFoundDesc": "抱歉，我们无法找到您要找的页面",
+    "internalError": "哎呀！出错了",
+    "internalErrorDesc": "抱歉，服务器出错了。",
+    "offlineError": "哎呀！网络出错了",
+    "offlineErrorDesc": "抱歉，无法连接到互联网，请检查您的网络连接并重试。",
+    "commingSoon": "即将推出"
+  },
+  "message": {
+    "hello": "你好",
+    "welcome": "欢迎使用"
+  }
+}
