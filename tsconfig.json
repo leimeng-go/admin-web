@@ -16,7 +16,12 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "types": ["vite/client", "node", "element-plus/global"]
+    "types": [
+      "vite/client",
+      "node",
+      "element-plus/global",
+      "@types/tailwindcss"
+    ]
   },
   "include": [
     "src/**/*.ts",

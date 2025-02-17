@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* 覆盖 Element Plus 默认样式 */
+.el-input__inner {
+  @apply bg-transparent border-0 rounded-none text-light-gray h-[47px];
+}
+
+.el-input__inner::placeholder {
+  @apply text-light-gray;
+}
+
+.el-form-item {
+  @apply border border-white/10 bg-black/10 rounded-md text-[#454545];
+} 

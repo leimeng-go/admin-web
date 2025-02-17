@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen w-full bg-[#2d3a4b] flex items-center justify-center">
+    <div class="min-h-screen w-full bg-login-bg flex items-center justify-center">
       <el-form
         ref="loginFormRef"
         :model="loginForm"
