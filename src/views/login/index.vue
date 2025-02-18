@@ -4,18 +4,18 @@
         ref="loginFormRef"
         :model="loginForm"
         :rules="loginRules"
-        class="w-[520px] max-w-full mx-auto px-8 pt-40"
+        class="w-[520px] max-w-full mx-auto p-8"
         autocomplete="on"
         label-position="left"
       > 
         <div class="mb-10 text-center">
-          <h3 class="text-2xl font-bold text-gray-100">Login Form</h3>
+          <h3 class="text-2xl font-bold text-white">系统登录</h3>
         </div>
   
-        <el-form-item prop="username">
+        <el-form-item prop="username">  
           <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#889aa4]">
-              <svg-icon icon-class="user" />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-light-gray z-10">
+              <svg-icon icon-class="user" class="text-xl" />
             </span>
             <el-input
               ref="usernameRef"
@@ -24,7 +24,6 @@
               name="username"
               type="text"
               tabindex="1"
-              class="h-12 bg-black/10"
               autocomplete="on"
             />
           </div>
@@ -36,8 +35,8 @@
           placement="right"
           manual
         >
-          <el-form-item prop="password">
-            <div class="relative">
+          <el-form-item prop="password" class="[&_.el-form-item__content]:mb-0">
+            <div class="relative bg-black/10 rounded-md [&_.el-input__wrapper]:bg-transparent [&_.el-input__wrapper]:shadow-none [&_.el-input__wrapper]:box-shadow-none">
               <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#889aa4]">
                 <svg-icon icon-class="password" />
               </span>
