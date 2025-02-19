@@ -1,10 +1,10 @@
 <template>
-    <div class="min-h-screen w-full bg-login-bg flex items-center justify-center">
+    <div class="login-container min-h-screen w-full bg-login-bg flex items-center justify-center">
       <el-form
         ref="loginFormRef"
         :model="loginForm"
         :rules="loginRules"
-        class="w-[520px] max-w-full mx-auto p-8"
+        class="w-[520px] max-w-full mx-auto p-8 [&_.el-form-item__error]:text-[#ff4949]"
         autocomplete="on"
         label-position="left"
       > 
@@ -12,8 +12,8 @@
           <h3 class="text-2xl font-bold text-white">系统登录</h3>
         </div>
   
-        <el-form-item prop="username">  
-          <div class="relative">
+        <el-form-item prop="username" class="w-full [&_.el-form-item__content]:w-full">
+          <div class="relative w-full [&_.el-input__wrapper]:bg-transparent [&_.el-input__wrapper]:shadow-none [&_.el-input__wrapper]:border-0 [&_.el-input__wrapper]:p-0">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-light-gray z-10">
               <svg-icon icon-class="user" class="text-xl" />
             </span>
@@ -24,6 +24,7 @@
               name="username"
               type="text"
               tabindex="1"
+              class="w-full h-[47px] [&_.el-input__inner]:text-white [&_.el-input__inner]:pl-9 [&_.el-input__inner]:h-[47px] [&_.el-input__inner]:leading-[47px] [&_.el-input__inner]:bg-black/10 [&_.el-input__inner]:rounded-md [&_.el-input__inner]:w-full [&_.el-input__inner::placeholder]:text-light-gray"
               autocomplete="on"
             />
           </div>
@@ -35,9 +36,9 @@
           placement="right"
           manual
         >
-          <el-form-item prop="password" class="[&_.el-form-item__content]:mb-0">
-            <div class="relative bg-black/10 rounded-md [&_.el-input__wrapper]:bg-transparent [&_.el-input__wrapper]:shadow-none [&_.el-input__wrapper]:box-shadow-none">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#889aa4]">
+          <el-form-item prop="password" class="w-full [&_.el-form-item__content]:w-full">
+            <div class="relative w-full [&_.el-input__wrapper]:bg-transparent [&_.el-input__wrapper]:shadow-none [&_.el-input__wrapper]:border-0 [&_.el-input__wrapper]:p-0">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-light-gray">
                 <svg-icon icon-class="password" />
               </span>
               <el-input
@@ -47,14 +48,14 @@
                 placeholder="Password"
                 name="password"
                 tabindex="2"
-                class="h-12 bg-black/10"
+                class="w-full h-[47px] [&_.el-input__inner]:text-white [&_.el-input__inner]:pl-9 [&_.el-input__inner]:h-[47px] [&_.el-input__inner]:leading-[47px] [&_.el-input__inner]:bg-black/10 [&_.el-input__inner]:rounded-md [&_.el-input__inner]:w-full [&_.el-input__inner::placeholder]:text-light-gray"
                 autocomplete="on"
                 @keyup="checkCapslock"
                 @blur="capsTooltip = false"
                 @keyup.enter="handleLogin"
               />
               <span 
-                class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#889aa4]"
+                class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-light-gray"
                 @click="showPwd"
               >
                 <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
@@ -66,7 +67,7 @@
         <el-button 
           :loading="loading" 
           type="primary" 
-          class="w-full mb-8"
+          class="w-full mb-8 bg-[#1890ff] border-[#1890ff] hover:bg-[#40a9ff] hover:border-[#40a9ff]"
           @click.prevent="handleLogin"
         >
           Login
@@ -237,4 +238,50 @@
     }
   })
   </script>
+  
+  <style scoped>
+  .login-container {
+    :deep(.el-input__wrapper) {
+      background-color: transparent;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+    }
+
+    :deep(.el-input__inner) {
+      color: #fff;
+      padding-left: 35px;
+      height: 47px;
+      line-height: 47px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    :deep(.el-input) {
+      --el-input-bg-color: transparent;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      height: 47px;
+    }
+
+    :deep(.el-input__inner::placeholder) {
+      color: #889aa4;
+    }
+
+    :deep(.el-form-item__error) {
+      color: #ff4949;
+    }
+
+    :deep(.el-button--primary) {
+      background-color: #1890ff;
+      border-color: #1890ff;
+
+      &:hover {
+        background-color: #40a9ff;
+        border-color: #40a9ff;
+      }
+    }
+  }
+  </style>
   
