@@ -19,8 +19,7 @@
     "types": [
       "vite/client",
       "node",
-      "element-plus/global",
-      "@types/tailwindcss"
+      "element-plus/global"
     ]
   },
   "include": [
