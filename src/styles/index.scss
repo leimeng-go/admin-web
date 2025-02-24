@@ -67,39 +67,41 @@ a:hover {
   color: inherit; // 继承父元素的颜色
   text-decoration: none; // 移除链接下划线
 }
-
+// 移除div元素的默认轮廓线
 div:focus {
   outline: none;
 }
-
+// 浮动到右边
 .fr {
   float: right;
 }
-
+// 浮动到左边
 .fl {
   float: left;
 }
-
+// 右内边距5px
 .pr-5 {
   padding-right: 5px;
 }
-
+// 左内边距5px
 .pl-5 {
   padding-left: 5px;
 }
-
+// 块级元素
 .block {
   display: block;
+  // 块级元素的宽度为100%,独占一行，可以设置宽高，margin和padding 生效
 }
-
+// 鼠标悬停时显示为手型
 .pointer {
   cursor: pointer;
 }
-
+// 行内块级元素
 .inlineBlock {
   display: block;
 }
 
+// 清除浮动，使用浮动布局已经落后了
 .clearfix {
   &:after {
     visibility: hidden;

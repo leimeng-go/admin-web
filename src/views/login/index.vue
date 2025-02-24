@@ -219,14 +219,20 @@ $cursor: #fff;
   .el-input {
     display: inline-block;
     height: 47px;
-    width: 85%;
+    width: 85%;  // 控制整体宽度
+
+    .el-input__wrapper {
+      width: 100% !important;  // 强制占满父元素宽度
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+    }
 
     input {
       background: transparent;
-      border: 0px;
+      border: 0;
       appearance: none;
-      -webkit-appearance: none;
-      border-radius: 0px;
+      border-radius: 0;
       padding: 12px 5px 12px 15px;
       color: $light_gray;
       height: 47px;
@@ -236,7 +242,7 @@ $cursor: #fff;
         box-shadow: 0 0 0px 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
-    }
+    } 
   }
 
   .el-form-item {
@@ -319,6 +325,16 @@ $light_gray:#eee;
   @media only screen and (max-width: 470px) {
     .thirdparty-button {
       display: none;
+    }
+  }
+
+  :deep(.el-input) {
+    .el-input__wrapper {
+      // 外层样式
+    }
+    
+    .el-input__inner {
+      // 内层样式
     }
   }
 }
