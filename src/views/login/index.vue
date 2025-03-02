@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <!-- autocomplete 自动填充,label-position 标签位置 -->
     <el-form
       ref="loginFormRef"
       :model="loginForm"
@@ -21,7 +22,7 @@
           v-model="loginForm.username"
           placeholder="Username"
           name="username"
-          type="text"
+          type="text" 
           tabindex="1"
           autocomplete="on"
         />
@@ -37,6 +38,11 @@
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
+          <!-- 组件的唯一标识，当组件的key发生变化时，组件会被重新渲染 -->
+           <!-- :type="passwordType" 动态设置密码框的类型，值来自passwordType -->
+            <!-- @keyup="checkCapslock" 监听键盘按下事件,检查是否按下了大写锁定键 -->
+            <!-- @blur="capsTooltip = false" 失去焦点时，关闭capsTooltip -->
+            <!-- @keyup.enter="handleLogin" 监听回车键按下事件,调用handleLogin方法 ,用户输入密码后按回车键登录  -->
           <el-input
             ref="passwordRef"
             v-model="loginForm.password"
@@ -64,7 +70,7 @@
         Login
       </el-button>
 
-      <div style="position:relative">
+      <!-- <div style="position:relative">
         <div class="tips">
           <span>Username : admin</span>
           <span>Password : any</span>
@@ -81,10 +87,10 @@
         >
           Or connect with
         </el-button>
-      </div>
+      </div> -->
     </el-form>
 
-    <el-dialog
+    <!-- <el-dialog
       v-model="showDialog"
       title="Or connect with"
     >
@@ -93,7 +99,7 @@
       <br>
       <br>
       <social-sign />
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -101,7 +107,7 @@
 import { ref, reactive, onMounted, nextTick, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { validUsername } from '@/utils/validate'
+import { validUsername } from '@/utils'
 import type { FormInstance, FormRules } from 'element-plus'
 // import SocialSign from './components/SocialSignin.vue'
 
@@ -120,7 +126,7 @@ const loginForm = reactive({
 
 const validateUsername = (rule: any, value: string, callback: any) => {
   if (!validUsername(value)) {
-    callback(new Error('Please enter the correct user name'))
+    callback(new Error('请输入正确的用户名'))
   } else {
     callback()
   }
@@ -128,7 +134,7 @@ const validateUsername = (rule: any, value: string, callback: any) => {
 
 const validatePassword = (rule: any, value: string, callback: any) => {
   if (value.length < 6) {
-    callback(new Error('The password can not be less than 6 digits'))
+    callback(new Error('密码不能小于6位'))
   } else {
     callback()
   }

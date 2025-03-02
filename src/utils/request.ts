@@ -1,67 +1,74 @@
-import axios, { Axios, AxiosResponse, Method } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useUserStore } from '@/stores/user'
 
-// interface IAxiosData{
-//     url: string 
-//     method: Method
-//     headers?: any
-//     json: boolean
-//     contentType?: string 
-//     data?: any 
-//     params?: any
-//     timeout?: number 
-//     responseType?: ResponseType
-// }
+// Create an axios instance
+const service = axios.create({
+  baseURL: import.meta.env.VITE_APP_BASE_API, // url = base url + request url
+  timeout: 5000 // request timeout
+})
 
-// const axiosInstance =axios.create({
-//     timeout: 20000 //设置超市时间
-// })
+// Request interceptor
+service.interceptors.request.use(
+  (config) => {
+    // Add custom headers here if needed
+    const userStore = useUserStore()
+    if (userStore.authType) {
+      // Add token to headers if available
+      // config.headers['Authorization'] = `Bearer ${userStore.token}`
+    }
+    return config
+  },
+  (error) => {
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
 
-// export default function request(arr: IAxiosData) {
-//     return new Promise<any>((resolve, reject) => {
-//         axiosInstance({
-//             timeout: arr.timeout === undefined ? 10000 : arr.timeout, // 请求超时
-//             url: arr.url,
-//             method: arr.method || 'POST',
-//             header: {
-//                 'content-type': arr.contentType ? arr.contentType : arr.json ? 'application/json; charset=UTF-8' : 'application/x-www-form-urlencoded; charset=UTF-8'
-//             },
-//             params: arr.params || '',
-//             data: arr.data || '',
-//             responseType: arr.responseType || 'json'
-//         }).then((response: AxiosResponse<any>) => {
-//             /**
-//              * response格式
-//              * {
-//              *   data:{},
-//              *   status:200,
-//              *   statusText:'OK',//从服务器返回的http状态文本
-//              *   headers: {},//响应头信息
-//              *   config: {} //`config`是在请求的时候的一些配置信息
-//              *   }
-//              */
-//             const responseStatus = `${response.status}`;
-//             if (responseStatus.charAt(0) === '2') {
-//                 if (response.data.code === '1' || response.data.code === 'err_9999') {
-//                     ElMessage({
-//                         type: 'error',
-//                         message: response.data.message
-//                     })
-//                     reject(response.data)
-//                     return
-//                 }
-//                 resolve(response.data)
-//             } else {
-//                 ElMessage({
-//                     type: 'error',
-//                     message: response.data.message
-//                 })
-//                 reject(response.data)
-//             }
-//         }).catch((err) => {
-//             ElMessage({
-//                 type:'error',
-//                 message:err.message
-//             })
-//         })
-//     })
-// }
+// Response interceptor
+service.interceptors.response.use(
+  (response) => {
+    const res = response.data
+
+    // If the custom code is not 20000, it is judged as an error.
+    if (res.code !== 20000) {
+      ElMessage({
+        message: res.message || 'Error',
+        type: 'error',
+        duration: 5 * 1000
+      })
+
+      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
+      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+        // to re-login
+        ElMessageBox.confirm(
+          'You have been logged out, you can cancel to stay on this page, or log in again',
+          'Confirm logout',
+          {
+            confirmButtonText: 'Re-Login',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+          }
+        ).then(() => {
+          const userStore = useUserStore()
+          userStore.logout()
+          location.reload()
+        })
+      }
+      return Promise.reject(new Error(res.message || 'Error'))
+    } else {
+      return res
+    }
+  },
+  (error) => {
+    console.log('err' + error) // for debug
+    ElMessage({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+    return Promise.reject(error)
+  }
+)
+
+export default service

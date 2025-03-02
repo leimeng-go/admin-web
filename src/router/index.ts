@@ -6,6 +6,7 @@ import {
 
 import type { RouteRecordRaw } from 'vue-router';
 
+import Layout from '@/layout/index.vue'
 
 const routers: RouteRecordRaw[] =[
   {
@@ -16,6 +17,23 @@ const routers: RouteRecordRaw[] =[
           hidden: true,
       },
   },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard',
+          affix: true,
+        }
+      }
+    ]
+  }
   
 ]
 

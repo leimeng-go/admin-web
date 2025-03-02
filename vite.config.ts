@@ -30,4 +30,20 @@ export default defineConfig({
     // hmr: true,
     open: false,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Use modern API
+        quietDeps: true,
+        // Don't auto-import variables to prevent circular references
+        // Instead, we'll rely on explicit imports in each file
+        // Add path resolution for @ alias
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src')
+          }
+        }
+      }
+    }
+  }
 })
