@@ -78,3 +78,40 @@ const activeMenu = computed(() => {
 const showLogo = computed(() => settingsStore.sidebarLogo)
 const isCollapse = computed(() => !sidebar.value.opened)
 </script>
+
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+
+.has-logo {
+  .el-scrollbar {
+    height: calc(100% - 50px);
+  }
+}
+
+.el-scrollbar {
+  height: 100%;
+  background-color: $menuBg;
+  
+  .el-menu {
+    border: none;
+    height: 100%;
+    width: 100% !important;
+  }
+}
+
+.el-menu-item, .el-submenu__title {
+  &:hover {
+    background-color: $menuHover !important;
+  }
+}
+
+.el-submenu {
+  .el-menu-item {
+    background-color: $subMenuBg !important;
+    
+    &:hover {
+      background-color: $subMenuHover !important;
+    }
+  }
+}
+</style>
